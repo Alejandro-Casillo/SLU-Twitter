@@ -1,9 +1,7 @@
-
-
 public class Driver
 {
-	public static void main(String []args)
-	{
-		MainFrame mainframe = new MainFrame();
-	}
+   public static void main(String[] args)
+   {
+      MainFrame mainframe = new MainFrame();
+   }
 }
