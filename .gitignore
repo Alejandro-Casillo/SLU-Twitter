@@ -1,3 +1,4 @@
 classes*
 *.class
 backend/mariadb-java-client-*
+*privateNotes

@@ -1,10 +1,12 @@
-mysql -h db1.mcs.slu.edu -u sarpongdk -p
-
-port: 3306
-
 # To compile 
+javac -cp .:<libs> -d <classes-dir> *.java
+
+e.g.
 javac -cp .:libs/* -d classes/ *.java
 
 # To run
+java -cp .:<libs> Controller
+
+.e.g.
 java -cp .:../libs/* Controller
 
