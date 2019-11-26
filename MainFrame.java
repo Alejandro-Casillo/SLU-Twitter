@@ -90,6 +90,7 @@ public class MainFrame extends JFrame
       {
          public void actionPerformed(ActionEvent e)
          {
+            loginPanel.clear();
             setVisible(false);
             remove(loginPanel);
             add(signUpPanel);
@@ -104,6 +105,7 @@ public class MainFrame extends JFrame
       {
          public void actionPerformed(ActionEvent e)
          {
+            signUpPanel.clear();
             setVisible(false);
             remove(signUpPanel);
             add(loginPanel);

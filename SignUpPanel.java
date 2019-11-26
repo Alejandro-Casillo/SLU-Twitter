@@ -165,4 +165,14 @@ public class SignUpPanel extends JPanel
       calendar.setTime(dob);
       return calendar;
    }
+
+   public void clear()
+   {
+      fNameField.setText("");
+      lNameField.setText("");
+      usernameField.setText("");
+      passwordField.setText("");
+      //TODO: Reset JDatePicker
+      //dobPicker.getJFormattedTextField().setText();
+   }
 }

@@ -124,4 +124,10 @@ public class LoginPanel extends JPanel
    {
       loginBtn.addActionListener(listener);
    }
+ 
+   public void clear()
+   {
+      usernameField.setText("");
+      passwordField.setText("");
+   }
 }

@@ -47,6 +47,7 @@ public class Controller
          // failed to register
          if (!registered)
          {
+            System.out.println("Failed to register user"); // debug
             view.displaySignUpError();
             return;
          }
@@ -68,6 +69,7 @@ public class Controller
          boolean authenticated = auth.authenticate(username, password);
          if (!authenticated)
          {
+            System.out.println("Failed to authenticate user"); // debug
             view.displayLoginError();
             return;  
          }
