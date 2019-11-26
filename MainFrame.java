@@ -37,7 +37,7 @@ public class MainFrame extends JFrame
       String username = signUpPanel.getUsername(); 
       String password = signUpPanel.getPassword();
       String name = signUpPanel.getName();
-      Calendar dob = null;
+      Calendar dob = signUpPanel.getDateOfBirth();
       SignUpDTO dto = new SignUpDTO(username, password, name, dob);
 
       return dto;   

@@ -7,12 +7,12 @@ import java.util.*;
 
 public class LogIn extends JPanel
 {
-   private JTextField usernametxt;
-   private JPasswordField passwordtxt;
-   private JLabel username, password, title, loginBtnTitle, needAccount;
+   private JTextField usernameField;
+   private JPasswordField passwordField;
+   private JLabel username, password, title, loginTitle, needAccount;
    private JLabel errorMsg;
    private JButton loginBtn, createAccountBtn;
-   private JPanel loginBtnInfo, titlePanel, miniTitlePanel, needsSignup;
+   private JPanel loginPanel, titlePanel, miniTitlePanel, signUpPanel;
 
    public LogIn()
    {
@@ -24,7 +24,9 @@ public class LogIn extends JPanel
       errorMsg = new JLabel("Username and password do not match!!");
       errorMsg.setHorizontalAlignment(SwingConstants.CENTER);
       errorMsg.setVerticalAlignment(SwingConstants.CENTER);
+      errorMsg.setFont(new Font("Tahoma", Font.BOLD, 10));
       errorMsg.setForeground(Color.RED);
+      errorMsg.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
       errorMsg.setVisible(false);      
 
       titlePanel = new JPanel();
@@ -45,11 +47,11 @@ public class LogIn extends JPanel
       title.setHorizontalAlignment(SwingConstants.CENTER);
       title.setVerticalAlignment(SwingConstants.CENTER);
 
-      loginBtnTitle = new JLabel("Log In");
-      loginBtnTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-      loginBtnTitle.setForeground(Color.WHITE);
-      loginBtnTitle.setHorizontalAlignment(SwingConstants.CENTER);
-      loginBtnTitle.setVerticalAlignment(SwingConstants.CENTER);
+      loginTitle = new JLabel("Log In");
+      loginTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
+      loginTitle.setForeground(Color.WHITE);
+      loginTitle.setHorizontalAlignment(SwingConstants.CENTER);
+      loginTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       miniTitlePanel = new JPanel();
       miniTitlePanel.setBounds(0, 200, 750, 100);
@@ -59,47 +61,47 @@ public class LogIn extends JPanel
       username = new JLabel("Username: ");
       password = new JLabel("Password: ");
 
-      usernametxt = new JTextField();
-      passwordtxt = new JPasswordField();
+      usernameField = new JTextField();
+      passwordField = new JPasswordField();
 
-      loginBtnInfo = new JPanel();
-      loginBtnInfo.setLayout(new GridLayout(2, 2));
-      loginBtnInfo.setBounds(255, 350, 250, 50);
-      loginBtnInfo.setBackground(new Color(51, 153, 255));
+      loginPanel = new JPanel();
+      loginPanel.setLayout(new GridLayout(2, 2));
+      loginPanel.setBounds(255, 350, 250, 50);
+      loginPanel.setBackground(new Color(51, 153, 255));
 
-      needsSignup = new JPanel();
-      needsSignup.setLayout(new GridLayout(3, 1));
-      needsSignup.setBounds(250, 425, 300, 100);
-      needsSignup.setBackground(new Color(51, 153, 255));
+      signUpPanel = new JPanel();
+      signUpPanel.setLayout(new GridLayout(4, 1));
+      signUpPanel.setBounds(250, 425, 300, 100);
+      signUpPanel.setBackground(new Color(51, 153, 255));
 
-      miniTitlePanel.add(loginBtnTitle);
+      miniTitlePanel.add(loginTitle);
 
-      loginBtnInfo.add(username);
-      loginBtnInfo.add(usernametxt);
-      loginBtnInfo.add(password);
-      loginBtnInfo.add(passwordtxt);
+      loginPanel.add(username);
+      loginPanel.add(usernameField);
+      loginPanel.add(password);
+      loginPanel.add(passwordField);
 
-      needsSignup.add(loginBtn);
-      needsSignup.add(errorMsg);
-      needsSignup.add(needAccount);
-      needsSignup.add(createAccountBtn);
+      signUpPanel.add(loginBtn);
+      signUpPanel.add(errorMsg);
+      signUpPanel.add(needAccount);
+      signUpPanel.add(createAccountBtn);
 
       titlePanel.add(title);
 
       add(miniTitlePanel);
-      add(needsSignup);
-      add(loginBtnInfo);
+      add(signUpPanel);
+      add(loginPanel);
       add(titlePanel);
    }
 
    public String getUsername()
    {
-      return usernametxt.getText();
+      return usernameField.getText();
    }
 
    public String getPassword()
    {
-      return String.valueOf(passwordtxt.getPassword());
+      return String.valueOf(passwordField.getPassword());
    }
 
    public void displayError(String txt)
