@@ -1,3 +1,5 @@
+//package backend;
+
 public class LoginDTO
 {
    protected String username, password;

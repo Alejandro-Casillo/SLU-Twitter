@@ -1,7 +1,11 @@
+//package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
+//import backend.*;
 
 public class MainFrame extends JFrame 
 {

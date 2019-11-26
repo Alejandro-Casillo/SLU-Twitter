@@ -1,3 +1,5 @@
+//package backend;
+
 import java.util.*;
 
 public class SignUpDTO extends LoginDTO
@@ -42,7 +44,7 @@ public class SignUpDTO extends LoginDTO
       String name = "Fake User";
       Calendar dob = Calendar.getInstance();
       dob.set(1999, 9, 3); 
-      SignUpDTO dto = new SignUpDTO(username, password);
+      SignUpDTO dto = new SignUpDTO(username, password, name, dob);
       System.out.println(dto);
       System.out.println(dto.getProfile());
    }

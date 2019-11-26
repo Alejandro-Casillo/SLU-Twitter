@@ -1,3 +1,5 @@
+//package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -96,7 +98,7 @@ public class LogIn extends JPanel
 
    public String getPassword()
    {
-      return String.valueOf(passwordtxt.getPassword())
+      return String.valueOf(passwordtxt.getPassword());
    }
 
    public void displayError(String txt)
@@ -110,7 +112,7 @@ public class LogIn extends JPanel
       createAccount.addActionListener(listener);
    }
 
-   public addLoginListener(ActionListener listener)
+   public void addLoginListener(ActionListener listener)
    {
       login.addActionListener(listener);
    }

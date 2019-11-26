@@ -1,6 +1,10 @@
+//package backend;
+
 import java.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+//import view.*;
 
 public class Controller
 {
@@ -18,7 +22,7 @@ public class Controller
       this.view.addOnLoginListener(loginListener);
    }
 
-   private ActionListener signUpListener = new ActionListener {
+   private ActionListener signUpListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) 
       {
          SignUpDTO dto = view.getSignUpInfo();
@@ -36,10 +40,11 @@ public class Controller
          }
 
          // TODO: Switch to user profile panel       
+         System.out.println("User has been registered!"); // debug
       }
-   }
+   };
 
-   private ActionListener loginListenerListener = new ActionListener {
+   private ActionListener loginListenerListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) 
       {
          LoginDTO dto = view.getLoginInfo();
@@ -56,7 +61,21 @@ public class Controller
 
          // TODO: Switch to user profile panel
       }
+   };
+   
+   public static void main(String[] args)
+   {
+      String driverName = "org.mariadb.jdbc.Driver";
+      String jdbcUrl = "jdbc:mariadb://db1.mcs.slu.edu:3306/sarpongdk?user=%s&password=%s";
+      String username = "sarpongdk";
+      String password = "7E!9DMewEm";
+      String connectionURL = String.format(jdbcUrl, username, password);
+      
+      DatabaseModel dbModel = new DatabaseModel(driverName, connectionURL, username, password);
+      AuthenticationModel authModel = new AuthenticationModel(dbModel);
+      MainFrame view = new MainFrame();
+      
+      Controller controller = new Controller(dbModel, authModel, view);
    }
-
 
 }
