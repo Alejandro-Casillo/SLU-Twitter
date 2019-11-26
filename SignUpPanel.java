@@ -10,7 +10,7 @@ import org.jdatepicker.*;
 import org.jdatepicker.impl.*;
 import org.jdatepicker.util.*;
 
-public class SignUp extends JPanel
+public class SignUpPanel extends JPanel
 {
    private JTextField fNameField, lNameField, usernameField, dobField;
    private JPasswordField passwordField;
@@ -24,7 +24,7 @@ public class SignUp extends JPanel
    private JDatePanelImpl datePanel;
    private UtilDateModel dateModel;
 
-   public SignUp()
+   public SignUpPanel()
    {
       super();
       title = new JLabel("SLU Twitter");
@@ -115,6 +115,11 @@ public class SignUp extends JPanel
    {
       errorMsg.setText(txt);
       errorMsg.setVisible(true);
+   }
+
+   public void hideError()
+   {
+      errorMsg.setVisible(false);
    }
 
    public String getUsername()

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class LogIn extends JPanel
+public class LoginPanel extends JPanel
 {
    private JTextField usernameField;
    private JPasswordField passwordField;
@@ -14,7 +14,7 @@ public class LogIn extends JPanel
    private JButton loginBtn, createAccountBtn;
    private JPanel loginPanel, titlePanel, miniTitlePanel, signUpPanel;
 
-   public LogIn()
+   public LoginPanel()
    {
       title = new JLabel("SLU Twitter");
       needAccount = new JLabel("Don't have an account yet? Make one here!");
@@ -108,6 +108,11 @@ public class LogIn extends JPanel
    {
       errorMsg.setText(txt);
       errorMsg.setVisible(true);
+   }
+
+   public void hideError()
+   {
+      errorMsg.setVisible(false);
    }
 
    public void addCreateAccountListener(ActionListener listener)

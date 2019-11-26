@@ -12,14 +12,14 @@ public class MainFrame extends JFrame
    private static final String TITLE = "SLU Twitter";
 
    //private JFrame this = new JFrame("SLU Twitter");
-   private LogIn loginPanel;
-   private SignUp signUpPanel;
+   private LoginPanel loginPanel;
+   private SignUpPanel signUpPanel;
 
    public MainFrame()
    {
       super(TITLE);
-      loginPanel = new LogIn();
-      signUpPanel = new SignUp();
+      loginPanel = new LoginPanel();
+      signUpPanel = new SignUpPanel();
 
       this.add(loginPanel);
 
@@ -27,8 +27,8 @@ public class MainFrame extends JFrame
       this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
       this.setVisible(true);
 
-      onSwitchToSignUp();
-      onSwitchToLogIn();
+      onSwitchToSignUpPanel();
+      onSwitchToLoginPanel();
    }
 
    public SignUpDTO getSignUpInfo()
@@ -49,6 +49,11 @@ public class MainFrame extends JFrame
       signUpPanel.displayError(msg);
    }
 
+   public void hideSignUpError()
+   {
+      signUpPanel.hideError();
+   }
+
    public LoginDTO getLoginInfo()
    {
       String username = loginPanel.getUsername();
@@ -64,6 +69,11 @@ public class MainFrame extends JFrame
       loginPanel.displayError(msg);
    }
 
+   public void hideLoginError()
+   {
+      loginPanel.hideError();
+   }
+
    public void addOnCreateAccountListener(ActionListener listener)
    {
       signUpPanel.addCreateAccountListener(listener);
@@ -74,7 +84,7 @@ public class MainFrame extends JFrame
       loginPanel.addLoginListener(listener);
    }
 
-   public void onSwitchToSignUp()
+   public void onSwitchToSignUpPanel()
    {
       loginPanel.addCreateAccountListener(new ActionListener()
       {
@@ -88,7 +98,7 @@ public class MainFrame extends JFrame
       });
    }
 
-   public void onSwitchToLogIn()
+   public void onSwitchToLoginPanel()
    {
       signUpPanel.addLoginActionListener(new ActionListener()
       {

@@ -52,6 +52,7 @@ public class Controller
          }
 
          // TODO: Switch to user profile panel       
+         view.hideSignUpError();
          System.out.println("User has been registered!"); // debug
       }
    };
@@ -72,6 +73,7 @@ public class Controller
          }
 
          // TODO: Switch to user profile panel
+         view.hideLoginError();
          System.out.println("User logged in!");
       }
    };

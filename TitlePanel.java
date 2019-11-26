@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.*;
 
-public class Title extends JPanel
+public class TitlePanel extends JPanel
 {
-   public Title()
+   public TitlePanel()
    {
       JPanel title = new JPanel();
       title.setBounds(150, 50, 500, 100);
