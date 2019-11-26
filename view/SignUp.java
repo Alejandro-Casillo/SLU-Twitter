@@ -3,14 +3,15 @@ import java.awt.*;
 
 public class SignUp extends JPanel
 {
-   public JTextField fnametxt, lnametxt, usernametxt, passwordtxt, dateOfBirthtxt;
-   public JLabel title, fname, lname, username, password, dateOfBirth, hasAccount;
-   public JLabel errorMsg;
-   public JButton signUp, logIn;
-   public JPanel info, titlePanel, needsLogIn;
+   private JTextField fnametxt, lnametxt, usernametxt, passwordtxt, dateOfBirthtxt;
+   private JLabel title, fname, lname, username, password, dateOfBirth, hasAccount;
+   private JLabel errorMsg;
+   private JButton signUp, logIn;
+   private JPanel info, titlePanel, needsLogIn;
 
    public SignUp()
    {
+      super();
       title = new JLabel("SLU Twitter");
       titlePanel = new JPanel();
 
@@ -114,6 +115,16 @@ public class SignUp extends JPanel
 
       String fullname = String.format("%s %s", firstName, lastName);
       return fullname;
+   }
+
+   public void addLoginActionListener(ActionListener listener)
+   {
+      logIn.addActionListener(listener);
+   } 
+
+   public void addCreateAccountListener(ActionListener listener)
+   {
+      signUp.addActionListener(listener);
    }
 
    //TODO: get DOB

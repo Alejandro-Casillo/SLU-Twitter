@@ -1,14 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 
 public class LogIn extends JPanel
 {
-   public JTextField usernametxt, passwordtxt;
-   public JLabel username, password, title, logInTitle, needAccount;
-   public JLabel errorMsg;
-   public JButton logIn, createAccount;
-   public JPanel logInInfo, titlePanel, miniTitlePanel, needsSignup;
+   private JTextField usernametxt, passwordtxt;
+   private JLabel username, password, title, logInTitle, needAccount;
+   private JLabel errorMsg;
+   private JButton logIn, createAccount;
+   private JPanel logInInfo, titlePanel, miniTitlePanel, needsSignup;
 
    public LogIn()
    {
@@ -102,5 +103,15 @@ public class LogIn extends JPanel
    {
       errorMsg.setText(txt);
       errorMsg.setVisible(true);
+   }
+
+   public void addCreateAccountListener(ActionListener listener)
+   {
+      createAccount.addActionListener(listener);
+   }
+
+   public addLoginListener(ActionListener listener)
+   {
+      login.addActionListener(listener);
    }
 }

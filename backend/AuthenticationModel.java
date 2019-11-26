@@ -5,11 +5,11 @@ import java.util.*;
 
 //import backend.domain.*;
 
-public class Authentication
+public class AuthenticationModel
 {
    private DatabaseModel model;
 
-   public Authentication(DatabaseModel model)
+   public AuthenticationModel(DatabaseModel model)
    {
       this.model = model;
    }
@@ -136,8 +136,8 @@ public class Authentication
       Profile profile = new Profile(name, dob);
       User user = new User(account, profile);
 
-      // Authentication
-      Authentication authentication = new Authentication(model);
+      // AuthenticationModel
+      AuthenticationModel authentication = new AuthenticationModel(model);
 
       try 
       {
