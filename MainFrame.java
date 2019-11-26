@@ -25,7 +25,6 @@ public class MainFrame extends JFrame
 
       this.setBounds(0, 0, 750, 750);
       this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-		
       this.setVisible(true);
 
       onSwitchToSignUp();
@@ -50,11 +49,11 @@ public class MainFrame extends JFrame
       signUpPanel.displayError(msg);
    }
 
-   public LoginInDTO getLoginInfo()
+   public LoginDTO getLoginInfo()
    {
       String username = loginPanel.getUsername();
       String password = loginPanel.getPassword();
-      LoginInDTO dto = new LoginInDTO(username, password);
+      LoginDTO dto = new LoginDTO(username, password);
 
       return dto;
    }
@@ -81,10 +80,10 @@ public class MainFrame extends JFrame
       {
          public void actionPerformed(ActionEvent e)
          {
-            this.setVisible(false);
-            this.remove(loginPanel);
-            this.add(signUpPanel);
-            this.setVisible(true);
+            setVisible(false);
+            remove(loginPanel);
+            add(signUpPanel);
+            setVisible(true);
          }
       });
    }
@@ -95,10 +94,10 @@ public class MainFrame extends JFrame
       {
          public void actionPerformed(ActionEvent e)
          {
-            this.setVisible(false);
-            this.remove(signUpPanel);
-            this.add(loginPanel);
-            this.setVisible(true);
+            setVisible(false);
+            remove(signUpPanel);
+            add(loginPanel);
+            setVisible(true);
          }
       });
    }

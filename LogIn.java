@@ -7,11 +7,12 @@ import java.util.*;
 
 public class LogIn extends JPanel
 {
-   private JTextField usernametxt, passwordtxt;
-   private JLabel username, password, title, logInTitle, needAccount;
+   private JTextField usernametxt;
+   private JPasswordField passwordtxt;
+   private JLabel username, password, title, loginBtnTitle, needAccount;
    private JLabel errorMsg;
-   private JButton logIn, createAccount;
-   private JPanel logInInfo, titlePanel, miniTitlePanel, needsSignup;
+   private JButton loginBtn, createAccountBtn;
+   private JPanel loginBtnInfo, titlePanel, miniTitlePanel, needsSignup;
 
    public LogIn()
    {
@@ -28,8 +29,8 @@ public class LogIn extends JPanel
 
       titlePanel = new JPanel();
 
-      logIn = new JButton("Log in");
-      createAccount = new JButton("Create Account");
+      loginBtn = new JButton("Log in");
+      createAccountBtn = new JButton("Create Account");
 
       setLayout(null);
       setBackground(new Color(51, 153, 255));
@@ -44,11 +45,11 @@ public class LogIn extends JPanel
       title.setHorizontalAlignment(SwingConstants.CENTER);
       title.setVerticalAlignment(SwingConstants.CENTER);
 
-      logInTitle = new JLabel("Log In");
-      logInTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-      logInTitle.setForeground(Color.WHITE);
-      logInTitle.setHorizontalAlignment(SwingConstants.CENTER);
-      logInTitle.setVerticalAlignment(SwingConstants.CENTER);
+      loginBtnTitle = new JLabel("Log In");
+      loginBtnTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
+      loginBtnTitle.setForeground(Color.WHITE);
+      loginBtnTitle.setHorizontalAlignment(SwingConstants.CENTER);
+      loginBtnTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       miniTitlePanel = new JPanel();
       miniTitlePanel.setBounds(0, 200, 750, 100);
@@ -61,33 +62,33 @@ public class LogIn extends JPanel
       usernametxt = new JTextField();
       passwordtxt = new JPasswordField();
 
-      logInInfo = new JPanel();
-      logInInfo.setLayout(new GridLayout(2, 2));
-      logInInfo.setBounds(255, 350, 250, 50);
-      logInInfo.setBackground(new Color(51, 153, 255));
+      loginBtnInfo = new JPanel();
+      loginBtnInfo.setLayout(new GridLayout(2, 2));
+      loginBtnInfo.setBounds(255, 350, 250, 50);
+      loginBtnInfo.setBackground(new Color(51, 153, 255));
 
       needsSignup = new JPanel();
       needsSignup.setLayout(new GridLayout(3, 1));
       needsSignup.setBounds(250, 425, 300, 100);
       needsSignup.setBackground(new Color(51, 153, 255));
 
-      miniTitlePanel.add(logInTitle);
+      miniTitlePanel.add(loginBtnTitle);
 
-      logInInfo.add(username);
-      logInInfo.add(usernametxt);
-      logInInfo.add(password);
-      logInInfo.add(passwordtxt);
+      loginBtnInfo.add(username);
+      loginBtnInfo.add(usernametxt);
+      loginBtnInfo.add(password);
+      loginBtnInfo.add(passwordtxt);
 
-      needsSignup.add(logIn);
+      needsSignup.add(loginBtn);
       needsSignup.add(errorMsg);
       needsSignup.add(needAccount);
-      needsSignup.add(createAccount);
+      needsSignup.add(createAccountBtn);
 
       titlePanel.add(title);
 
       add(miniTitlePanel);
       add(needsSignup);
-      add(logInInfo);
+      add(loginBtnInfo);
       add(titlePanel);
    }
 
@@ -109,11 +110,11 @@ public class LogIn extends JPanel
 
    public void addCreateAccountListener(ActionListener listener)
    {
-      createAccount.addActionListener(listener);
+      createAccountBtn.addActionListener(listener);
    }
 
    public void addLoginListener(ActionListener listener)
    {
-      login.addActionListener(listener);
+      loginBtn.addActionListener(listener);
    }
 }

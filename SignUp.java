@@ -1,11 +1,13 @@
 //package view;
 
 import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
 
 public class SignUp extends JPanel
 {
-   private JTextField fnametxt, lnametxt, usernametxt, passwordtxt, dateOfBirthtxt;
+   private JTextField fnametxt, lnametxt, usernametxt, dateOfBirthtxt;
+   private JPasswordField passwordtxt;
    private JLabel title, fname, lname, username, password, dateOfBirth, hasAccount;
    private JLabel errorMsg;
    private JButton signUp, logIn;

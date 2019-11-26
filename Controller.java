@@ -1,9 +1,10 @@
 //package backend;
 
-import java.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.sql.*;
 //import view.*;
 
 public class Controller
@@ -30,7 +31,18 @@ public class Controller
          Account account = dto.getAccount();
 
          User newUser = new User(account, profile);
-         boolean registered = auth.registerUser(user);
+         
+         boolean registered = false;
+         
+         try
+         {
+            registered = auth.registerUser(newUser);
+         }
+         catch (SQLException ex)
+         {
+            System.out.println(ex);
+            registered = false;
+         }
 
          // failed to register
          if (!registered)
@@ -44,7 +56,7 @@ public class Controller
       }
    };
 
-   private ActionListener loginListenerListener = new ActionListener() {
+   private ActionListener loginListener = new ActionListener() {
       public void actionPerformed(ActionEvent e) 
       {
          LoginDTO dto = view.getLoginInfo();
@@ -60,6 +72,7 @@ public class Controller
          }
 
          // TODO: Switch to user profile panel
+         System.out.println("User logged in!");
       }
    };
    
