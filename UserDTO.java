@@ -1,13 +1,15 @@
 import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
 import java.util.*;
 
 public class UserDTO
 {
    private String username;
    private ArrayList<String> following;
-   private Image pic;
+   private ImageIcon pic;
 
-   public UserDTO(String username, ArrayList<String> following, Image pic)
+   public UserDTO(String username, ArrayList<String> following, ImageIcon pic)
    {
       this.username = username;
       this.following = following;
@@ -19,7 +21,7 @@ public class UserDTO
       return username;
    }
 
-   public Image getProfilePicture()
+   public ImageIcon getProfilePicture()
    {
       return pic;
    }

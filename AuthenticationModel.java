@@ -18,7 +18,7 @@ public class AuthenticationModel
    {
       try
       {
-         String query = "SELECT * FROM sarpongdk.Account WHERE username=? AND password=?;";
+         String query = "SELECT * FROM sarpongdk.Account WHERE username=? AND password=MD5(?);";
          PreparedStatement stmt = model.getConnection().prepareStatement(query);
          stmt.setString(1, username);
          stmt.setString(2, password);
@@ -60,7 +60,7 @@ public class AuthenticationModel
          int numFollowing = profile.getNumFollowing();
 
          // insert account into database
-         String accountQuery = "INSERT INTO sarpongdk.Account (username, password, date_created) VALUES (?, ?, ?);";
+         String accountQuery = "INSERT INTO sarpongdk.Account (username, password, date_created) VALUES (?, MD5(?), ?);";
          PreparedStatement aStmt = model.getConnection().prepareStatement(accountQuery, Statement.RETURN_GENERATED_KEYS);
 
          java.sql.Date accountDate = new java.sql.Date(dateCreated.getTime().getTime()); // conversion to sql date
@@ -85,12 +85,12 @@ public class AuthenticationModel
          }
          catch (SQLException e)
          {
-            //System.out.println(e);
+            System.out.println(e);
             return false;
          }
 
          // insert user profile into database
-         String profileQuery = "INSERT INTO sarpongdk.User (name, num_following, num_followers, dob, account_id) VALUES (?, ?, ?, ?, ?);";
+         String profileQuery = "INSERT INTO sarpongdk.User (name, num_following, num_followers, dob, account_id) VALUES (?, ?, ?, ?, (SELECT id FROM Account WHERE username=?) );";
          PreparedStatement pStmt = model.getConnection().prepareStatement(profileQuery, Statement.RETURN_GENERATED_KEYS);
 
          java.sql.Date userDOB = new java.sql.Date(dob.getTime().getTime()); // conversion to sql date from calendar
@@ -98,8 +98,19 @@ public class AuthenticationModel
          pStmt.setInt(2, numFollowing);
          pStmt.setInt(3, numFollowers);
          pStmt.setDate(4, userDOB);
-         pStmt.setInt(5, accountID);
+         pStmt.setString(5, username);
          int userID = pStmt.executeUpdate();
+         ResultSet rs1 = pStmt.getGeneratedKeys();
+
+         if (rs1.next())
+         {
+            userID = rs.getInt(1);
+         }
+
+         String pictureQuery = "INSERT INTO ProfilePicture (user_id) VALUES ( ( SELECT U.id FROM User AS U, Account AS A WHERE A.username=? AND U.account_id = A.id) );";
+         PreparedStatement picStmt = model.getConnection().prepareStatement(pictureQuery);
+         picStmt.setString(1, username);
+         picStmt.executeUpdate();
 
          model.getConnection().commit();
          return true; // successfully registered user

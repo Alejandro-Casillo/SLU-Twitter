@@ -1,10 +1,14 @@
 //package backend;
 
 import javax.swing.*;
+import javax.imageio.*;
 import java.awt.*;
+import java.awt.image.*;
 import java.awt.event.*;
 
 import java.sql.*;
+import java.util.*;
+import java.io.*;
 //import view.*;
 
 public class Controller
@@ -81,18 +85,34 @@ public class Controller
          // TODO: Switch to user profile panel
          view.hideLoginError();
          
-         Image pic = null;
+         String imgPath = db.getProfilePicture(username); 
+         ImageIcon pic = getImage(imgPath, 175, 175);
          ArrayList<String> following = null;
-         User userDto = new UserDTO(username, following, pic);
+         UserDTO userDto = new UserDTO(username, following, pic);
          view.switchToUserPage(userDto);
          //System.out.println("User logged in!");
 
       }
    };
 
-   private void getImage(String path) 
+   private ImageIcon getImage(String path, int width, int height) 
    {
-      return null;
+      BufferedImage image = null;
+      ImageIcon icon = null;
+
+      try
+      {
+         image = ImageIO.read(new File(path));
+         Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH);
+         icon = new ImageIcon(newimg);
+      }
+      catch (IOException e)
+      {
+         System.out.println(e);
+         return null;
+      }
+
+      return icon;
    }
    
    public static void main(String[] args)

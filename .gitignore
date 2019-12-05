@@ -1,4 +1,11 @@
+# Compiled classes
 classes*
 *.class
+
 backend/mariadb-java-client-*
 *privateNotes
+
+# User data
+User-Data/*
+
+!User-Data/default*

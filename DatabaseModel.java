@@ -34,7 +34,33 @@ public class DatabaseModel {
       return this.connection;
    }
 
-   public static void main(String[] args) {
+   public String getProfilePicture(String username)
+   {
+      String query = "SELECT image_path FROM ProfilePicture AS P, User AS U WHERE U.username=? AND U.id = P.user_id;";
+      String path = "/User-Data/default.jpg";
+
+      try
+      {
+         PreparedStatement stmt = this.connection.prepareStatement(query);
+         stmt.setString(1, username);
+
+         ResultSet rs = stmt.executeQuery();
+         if (rs.next())
+         {
+            path = rs.getString("image_path");
+         }
+      }
+      catch (SQLException e)
+      {
+         System.out.println(e);
+         return "/User-Data/default.jpg";
+      }
+
+      return path;
+   }
+
+   public static void main(String[] args) 
+   {
       String driverName = "org.mariadb.jdbc.Driver";
       String jdbcUrl = "jdbc:mariadb://db1.mcs.slu.edu:3306/sarpongdk?user=%s&password=%s";
       String username = "sarpongdk";

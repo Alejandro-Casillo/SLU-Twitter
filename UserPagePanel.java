@@ -71,9 +71,8 @@ public class UserPagePanel extends JPanel
 		setBounds(0, 0, 750, 750);
 	}
 
-   public void setProfileImage(Image img)
+   public void setProfileImage(ImageIcon icon)
    {
-      ImageIcon icon = new ImageIcon(img);
       imageText.setIcon(icon);
    }
 
@@ -82,7 +81,7 @@ public class UserPagePanel extends JPanel
       usernameLabel.setText(username);
    }
 
-   public void setFriendsList(ArrayList<String> friendsList)
+   public void setFollowingList(ArrayList<String> friendsList)
    {
       friendList = friendsList;
    }

@@ -3,6 +3,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.*;
 import java.util.*;
 
 //import backend.*;
@@ -129,6 +130,12 @@ public class MainFrame extends JFrame
    private void populateUserPanel(UserDTO dto)
    {
       String username = dto.getUsername();
+      ImageIcon pic = dto.getProfilePicture(); 
+      ArrayList<String> following = dto.getFollowing();
+
+      userPanel.setProfileImage(pic);
+      userPanel.setUsername(username);
+      userPanel.setFollowingList(following);
    }
 
    public static void main(String[] args)
