@@ -1,29 +1,36 @@
 import java.sql.*;
 import java.util.*;
-import java.awt.*;
 
 public class Tweet
 {
    private int likes;
-   private String content;
-   private User user;
-   private Image image;
+   private String content, username;
    private Calendar datePosted;
-   private boolean hasImage;
    
-   public Tweet(String content, User user, Image image)
+   public Tweet(String content, String username)
    {
       this.content = content;
-      this.user = user; 
-      this.image = image;
+      this.username = username; 
       this.likes = 0;
       this.datePosted = Calendar.getInstance();
-      this.hasImage = image != null ? true : false;
+   }
+
+   public Tweet(String content, String username, Calendar datePosted)
+   {
+      this.content = content;
+      this.username = username;
+      this.likes = 0;
+      this.datePosted = datePosted;
    }
 
    public Calendar getDatePosted()
    {
       return this.datePosted;
+   }
+
+   public void setDatePosted(Calendar date)
+   {
+      this.datePosted = date;
    }
 
    public int getLikes()
@@ -41,25 +48,9 @@ public class Tweet
       return this.content;
    }
 
-   public User getUser()
+   public String getUsername()
    {
-      return this.user;
-   }
-
-   public void addImage(Image image)
-   {
-      if (!hasImage)
-      {
-         this.image = image;
-         this.hasImage = true;
-      }
-
-      return;
-   }
-
-   public Image getImage()
-   {
-      return this.image;
+      return this.username;
    }
 
    // TODO: Tweet render method
@@ -71,7 +62,7 @@ public class Tweet
    public String toString()
    {
       String str = "Tweet\nUser: %s\nContent: %s\n";
-      String out = String.format(str, user.getUsername(), content);
+      String out = String.format(str, username, content);
 
       return out;
    }

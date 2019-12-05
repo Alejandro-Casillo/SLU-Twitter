@@ -1,0 +1,31 @@
+Profile Pic Table Statement
+CREATE TABLE ProfilePicture (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, image_path VARCHAR(150) DEFAULT '/Users/d_sarpong/Desktop/Fall-2019/Databases/SLU-Twitter/User-Data', user_id INT NOT NULL, CONSTRAINT `fk_profile_pic` FOREIGN KEY (user_id) REFERENCES User(id));
+
+Account Table Statement
+
+User Table Statement
+
+Tweet Table Statement
+
+Follows Table Statement
+CREATE TABLE Follows (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, follower INT NOT NULL, followee INT NOT NULL, CONSTRAINT `fk_follower` FOREIGN KEY (follower) REFERENCES User(id), CONSTRAINT `fk_followee` FOREIGN KEY (followee) REFERENCES User(id));
+
+Get Followers
+SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
+
+Number of followers
+SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
+
+Get Following
+SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.follower = U.id
+
+Number following
+SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
+
+Number of Posts
+
+Get user's tweets
+
+Create user tweet
+
+Friends Suggestion

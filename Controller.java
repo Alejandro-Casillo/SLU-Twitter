@@ -11,13 +11,17 @@ public class Controller
 {
    private AuthenticationModel auth;
    private DatabaseModel db;
+   private FriendshipModel friendModel;
+   private TweetModel tweetModel;
    private MainFrame view;
 
-   public Controller(DatabaseModel db, AuthenticationModel auth, MainFrame view)
+   public Controller(DatabaseModel db, AuthenticationModel auth, FriendshipModel friendModel, TweetModel tweetModel, MainFrame view)
    {
       this.db = db;
       this.auth = auth;
       this.view = view;
+      this.friendModel = friendModel;
+      this.tweetModel = tweetModel;
 
       this.view.addOnCreateAccountListener(signUpListener);
       this.view.addOnLoginListener(loginListener);
@@ -76,9 +80,20 @@ public class Controller
 
          // TODO: Switch to user profile panel
          view.hideLoginError();
-         System.out.println("User logged in!");
+         
+         Image pic = null;
+         ArrayList<String> following = null;
+         User userDto = new UserDTO(username, following, pic);
+         view.switchToUserPage(userDto);
+         //System.out.println("User logged in!");
+
       }
    };
+
+   private void getImage(String path) 
+   {
+      return null;
+   }
    
    public static void main(String[] args)
    {
@@ -90,9 +105,12 @@ public class Controller
       
       DatabaseModel dbModel = new DatabaseModel(driverName, connectionURL, username, password);
       AuthenticationModel authModel = new AuthenticationModel(dbModel);
+      FriendshipModel friendModel = new FriendshipModel(dbModel);
+      TweetModel tweetModel = new TweetModel(dbModel);
       MainFrame view = new MainFrame();
       
-      Controller controller = new Controller(dbModel, authModel, view);
+
+      Controller controller = new Controller(dbModel, authModel, friendModel, tweetModel, view);
    }
 
 }

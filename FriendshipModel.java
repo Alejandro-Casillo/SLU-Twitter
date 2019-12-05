@@ -10,35 +10,114 @@ public class FriendshipModel
       this.model = model;
    }
 
-   public ArrayList<User> getFollowers(User user)
+   public int getNumberFollowing(User user)
    {
-      // find followers of given user
+      int numFollowing = -1;
+      String username = user.getAccount().getUsername();
+      String query = "SELECT COUNT(*) AS num_following FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id AND U.account_id = A.id;";
+      try
+      {
+         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         ResultSet rs = stmt.executeQuery();
+         if (rs.next())
+         {
+            numFollowing = rs.getInt("num_following");
+         }
+         else 
+         {
+            numFollowing = 0;
+         }
 
-      // query to find user followers from followers table based on id
-
-      // place followers into arraylist 
-
-      // return arraylist
-
-      // in the event of an exception or if no follower is found, return empty arraylist
+         return numFollowing;
+      }
+      catch (SQLException ex)
+      {
+         System.out.println(ex);
+         return -1;
+      }
    }
 
-   public ArrayList<User> getFollowing(User user)
+   public int getNumberOfFollowers(User user)
    {
-      // find the people user is following
+      int numFollowers = -1;
+      String username = user.getAccount().getUsername();
+      String query = "SELECT COUNT(*) AS num_followers FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id AND A.id = U.account_id;";
+      try
+      {
+         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         ResultSet rs = stmt.executeQuery();
+         if (rs.next())
+         {
+            numFollowers = rs.getInt("num_followers");
+         }
+         else 
+         {
+            numFollowers = 0;
+         }
 
-      // query to find people this user follows from followers table based on id and username
+         return numFollowers;
+      }
+      catch (SQLException ex)
+      {
+         System.out.println(ex);
+         return -1;
+      }
+   
+   }
 
-      // place following into arraylist 
+   public ArrayList<String> getFollowers(User user)
+   {
+      String username = user.getAccount().getUsername();
+      ArrayList<String> following = new ArrayList<>();
+      String query = "SELECT username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id;";
+      try
+      {
+         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         stmt.setString(1, username);
+         ResultSet rs = stmt.executeQuery();
+         while (rs.next())
+         {
+            String friend = rs.getString("username");
+            following.add(friend);
+         }
 
-      // return arraylist
+         return following;
+      }
+      catch (SQLException ex)
+      {
+         System.out.println(ex);
+         return new ArrayList<String>();
+      }
+   }
 
-      // in the event of an exception or if no follower is found, return empty arraylist
+   public ArrayList<String> getFollowing(User user)
+   {
+      String username = user.getAccount().getUsername();
+      ArrayList<String> following = new ArrayList<>();
+      String query = "SELECT username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id;";
+      try
+      {
+         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         ResultSet rs = stmt.executeQuery();
+         while (rs.next())
+         {
+            String friend = rs.getString("username");
+            following.add(friend);
+         }
+
+         return following;
+      }
+      catch (SQLException ex)
+      {
+         System.out.println(ex);
+         return new ArrayList<String>();
+      }
    }
 
    public boolean addFollowing(User follower, User followee)
    {
       // query to insert this following relationship into database
+      return false;
 
       // return true if created, false if exception
    }
@@ -46,7 +125,13 @@ public class FriendshipModel
    public boolean unfollow(User follower, User followee)
    {
       // query to remove this following relationship from database
+      return false;
 
       // return true if removed, false if exception
+   }
+
+   public static void main(String[] args)
+   {
+   
    }
 }

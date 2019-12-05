@@ -11,53 +11,77 @@ public class TweetModel
       this.model = model;
    }
 
-   private Image[] getTweetImages(int[] tweetIds)
-   {
-      // retrieve images from database based on id
-
-      // convert into images to be rendered by tweet
-
-      // put images in arrayList and return
-   }
-
    public ArrayList<Tweet> getUserTweets(User user)
    {
-      // retrieve tweets based on username and user id
+      String username = user.getAccount().getUsername();
+      String query = "SELECT T.content, T.date_create, T.likes, U.username FROM Tweet AS T, User AS U WHERE U.id = T.user_id AND U.username = ?;";
+      ArrayList<Tweet> tweets = new ArrayList<>();
 
-      // obtain user images per tweet using above private method
+      try
+      {
+         PreparedStatement stmt = model.getConnection().prepareStatement(query);
+         ResultSet rs = stmt.executeQuery();
 
-      // create tweet objects for each tweet
+         while (rs.next())
+         {
+            int likes = rs.getInt("likes");
+            String content = rs.getString("content");
+            String tUsername = rs.getString("username");
+            java.sql.Date date = rs.getDate("date_create");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            
+            Tweet tweet = new Tweet(content, tUsername, calendar);
+            tweets.add(tweet);
+         }
+      }
+      catch (SQLException e)
+      {
+         System.out.println(e);
+         return new ArrayList<Tweet>();
+      }
 
-      // put tweets in arrayList and return them
-   }
-
-   public boolean deleteTweet(Tweet tweet)
-   {
-      // query to delete tweet from database
-
-      // return true if deleted, false otherwise and in exception
+      return tweets;
    }
 
    public boolean createTweet(Tweet tweet)
    {
-      // query to add tweet to database
+      try
+      {
+         String query = "INSERT INTO Tweet (content, date_create, likes, user_id) VALUES (?, ?, ?, (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id));";
 
-      // return true if create, false otherwise or in case of exception
-   }
+         int likes = tweet.getLikes();
+         String username = tweet.getUsername();
+         String content = tweet.getContent();
+         Calendar date = tweet.getDatePosted();
+         java.sql.Date tweetDate = new java.sql.Date(date.getTime().getTime());
 
-   public boolean updateTweet(Tweet oldTweet, Tweet newTweet)
-   {
-      // query to find old tweet
-
-      // update tweet
-
-      // query to insert new tweet
-
-      // return true if update, false otherwise and in exception
+         PreparedStatement stmt = model.getConnection().prepareStatement(query);
+         stmt.setString(1, content);
+         stmt.setDate(2, tweetDate);
+         stmt.setInt(3, likes);
+         stmt.executeUpdate();
+         return true;
+      }
+      catch (SQLException e)
+      {
+         System.out.println(e);
+         return false;
+      }
    }
 
    public static void main(String[] args)
-   {
+   {      
+      // MariaDB Connection
+      String driverName = "org.mariadb.jdbc.Driver";
+      String jdbcUrl = "jdbc:mariadb://db1.mcs.slu.edu:3306/sarpongdk";
+      String dbUsername = "sarpongdk";
+      String dbPassword = "7E!9DMewEm";
+      String connectionURL = String.format(jdbcUrl, dbUsername, dbPassword);
+      DatabaseModel model = new DatabaseModel(driverName, connectionURL, dbUsername, dbPassword);
    
+      TweetModel tweetModel = new TweetModel(model);
+      Tweet tweet = new Tweet("My first tweet", "sarpongdk");
+      tweetModel.createTweet(tweet);
    }
 }

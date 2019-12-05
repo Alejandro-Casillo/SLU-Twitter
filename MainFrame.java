@@ -14,17 +14,19 @@ public class MainFrame extends JFrame
    //private JFrame this = new JFrame("SLU Twitter");
    private LoginPanel loginPanel;
    private SignUpPanel signUpPanel;
+   private UserPagePanel userPanel;
 
    public MainFrame()
    {
       super(TITLE);
       loginPanel = new LoginPanel();
       signUpPanel = new SignUpPanel();
+      userPanel = new UserPagePanel();
 
       this.add(loginPanel);
 
       this.setBounds(0, 0, 750, 750);
-      this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       this.setVisible(true);
 
       onSwitchToSignUpPanel();
@@ -112,6 +114,21 @@ public class MainFrame extends JFrame
             setVisible(true);
          }
       });
+   }
+
+   public void switchToUserPage(UserDTO dto)
+   {
+      loginPanel.clear();
+      setVisible(false);
+      remove(loginPanel);
+      populateUserPanel(dto);
+      add(userPanel);
+      setVisible(true);
+   }
+
+   private void populateUserPanel(UserDTO dto)
+   {
+      String username = dto.getUsername();
    }
 
    public static void main(String[] args)
