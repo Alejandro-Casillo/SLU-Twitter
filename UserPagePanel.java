@@ -41,7 +41,7 @@ public class UserPagePanel extends JPanel
 		lowerPanel.setBackground(new Color(51, 153, 255));
 
 		mainPanel.setBounds(50, 95, 450, 400);
-		mainPanel.setLayout(new FlowLayout());
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		mainPanel.setBackground(Color.WHITE);
 
 		profilePicPanel.setBounds(50, 150, 175, 175);
@@ -86,8 +86,29 @@ public class UserPagePanel extends JPanel
       usernameLabel.setText("Welcome, " + username);
    }
 
-   public void setFollowingList(ArrayList<String> friendsList)
+   public void setTweets(ArrayList<String> tweets)
    {
-      friendList = friendsList;
+      for (int i = 0; i < tweets.size(); i++)
+      {
+         String tweet = tweets.get(i);
+         JLabel message = new JLabel(tweet);
+         JPanel tweetPanel = new JPanel();
+         tweetPanel.add(message);
+         mainPanel.add(tweetPanel);
+      }
+   }
+
+   public void setFollowing(ArrayList<String> following)
+   {
+      for (int i = 0; i < following.size(); i++)
+      {
+         JPanel friend = new JPanel();
+         JButton unfollow = new JButton("Unfollow");
+         JLabel username = new JLabel(following.get(i));
+
+         friend.add(username);
+         friend.add(unfollow);
+         friendPanel.add(friend);
+      } 
    }
 }

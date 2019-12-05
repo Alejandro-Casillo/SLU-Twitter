@@ -142,10 +142,12 @@ public class MainFrame extends JFrame
       String username = dto.getUsername();
       ImageIcon pic = dto.getProfilePicture(); 
       ArrayList<String> following = dto.getFollowing();
+      ArrayList<String> tweets = dto.getTweets();
 
       userPanel.setProfileImage(pic);
       userPanel.setUsername(username);
-      userPanel.setFollowingList(following);
+      userPanel.setFollowing(following);
+      userPanel.setTweets(tweets);
    }
 
    public static void main(String[] args)

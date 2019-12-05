@@ -11,11 +11,10 @@ public class TweetModel
       this.model = model;
    }
 
-   public ArrayList<Tweet> getUserTweets(User user)
+   public ArrayList<String> getUserTweets(String username)
    {
-      String username = user.getAccount().getUsername();
       String query = "SELECT T.content, T.date_create, T.likes, A.username FROM Tweet AS T, User AS U, Account AS A WHERE U.id = T.user_id AND A.username = ? AND A.id = U.account_id;";
-      ArrayList<Tweet> tweets = new ArrayList<>();
+      ArrayList<String> tweets = new ArrayList<>();
 
       try
       {
@@ -31,14 +30,13 @@ public class TweetModel
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             
-            Tweet tweet = new Tweet(content, tUsername, calendar);
-            tweets.add(tweet);
+            tweets.add(content);
          }
       }
       catch (SQLException e)
       {
          System.out.println(e);
-         return new ArrayList<Tweet>();
+         return new ArrayList<String>();
       }
 
       return tweets;
