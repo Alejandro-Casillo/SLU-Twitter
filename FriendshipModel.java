@@ -10,14 +10,14 @@ public class FriendshipModel
       this.model = model;
    }
 
-   public int getNumberFollowing(User user)
+   public int getNumberFollowing(String username)
    {
-      int numFollowing = -1;
-      String username = user.getAccount().getUsername();
+      int numFollowing = 0;
       String query = "SELECT COUNT(*) AS num_following FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id AND U.account_id = A.id;";
       try
       {
-         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         PreparedStatement stmt = model.getConnection().prepareStatement(query); 
+         stmt.setString(1, username);
          ResultSet rs = stmt.executeQuery();
          if (rs.next())
          {
@@ -32,19 +32,20 @@ public class FriendshipModel
       }
       catch (SQLException ex)
       {
+         System.out.println("Give me a following count goddamnit");
          System.out.println(ex);
-         return -1;
+         return 0;
       }
    }
 
-   public int getNumberOfFollowers(User user)
+   public int getNumberOfFollowers(String username)
    {
-      int numFollowers = -1;
-      String username = user.getAccount().getUsername();
+      int numFollowers = 0;
       String query = "SELECT COUNT(*) AS num_followers FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id AND A.id = U.account_id;";
       try
       {
-         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         PreparedStatement stmt = model.getConnection().prepareStatement(query); 
+         stmt.setString(1, username);
          ResultSet rs = stmt.executeQuery();
          if (rs.next())
          {
@@ -59,20 +60,21 @@ public class FriendshipModel
       }
       catch (SQLException ex)
       {
+         System.out.println("Give me a followers count goddamnit");
          System.out.println(ex);
-         return -1;
+         return 0;
       }
    
    }
 
-   public ArrayList<String> getFollowers(User user)
+   public ArrayList<String> getFollowers(String username)
    {
-      String username = user.getAccount().getUsername();
       ArrayList<String> following = new ArrayList<>();
-      String query = "SELECT username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id;";
+      String query = "SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id AND A.id = U.account_id;";
+
       try
       {
-         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         PreparedStatement stmt = model.getConnection().prepareStatement(query); 
          stmt.setString(1, username);
          ResultSet rs = stmt.executeQuery();
          while (rs.next())
@@ -90,14 +92,15 @@ public class FriendshipModel
       }
    }
 
-   public ArrayList<String> getFollowing(User user)
+   public ArrayList<String> getFollowing(String username)
    {
-      String username = user.getAccount().getUsername();
       ArrayList<String> following = new ArrayList<>();
-      String query = "SELECT username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id;";
+      String query = "SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id AND U.account_id = A.id;";
+
       try
       {
-         PreparedStatement stmt = model.getConnection().prepareStatement(username); 
+         PreparedStatement stmt = model.getConnection().prepareStatement(query); 
+         stmt.setString(1, username);
          ResultSet rs = stmt.executeQuery();
          while (rs.next())
          {
@@ -109,29 +112,65 @@ public class FriendshipModel
       }
       catch (SQLException ex)
       {
+         System.out.println("I want friends, WTF!");
          System.out.println(ex);
          return new ArrayList<String>();
       }
    }
 
-   public boolean addFollowing(User follower, User followee)
+   public boolean follow(String follower, String followee)
    {
       // query to insert this following relationship into database
-      return false;
-
-      // return true if created, false if exception
+      try
+      {
+         String query = "INSERT INTO TABLE Follows (follower, followee) VALUES ( (SELECT U.id FROM User AS U, Account AS A WHERE A.username=? AND A.id = U.account_id), (SELECT U.id FROM User AS U, Account AS A WHERE A.username=? AND A.id = U.account_id) );";
+         PreparedStatement stmt = model.getConnection().prepareStatement(query);
+         stmt.setString(1, follower);
+         stmt.setString(2, followee);
+         stmt.executeUpdate();
+         return true;
+      }
+      catch (SQLException e)
+      {
+         return false;
+      }
    }
 
-   public boolean unfollow(User follower, User followee)
+   public boolean unfollow(String follower, String followee)
    {
-      // query to remove this following relationship from database
-      return false;
-
-      // return true if removed, false if exception
+      try
+      {
+         String query = "DELETE FROM TABLE Follows WHERE follower IN (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id) AND followee IN (SELECT U.id FROM User AS U, Account AS A WHERE A.username=? AND U.account_id = A.id);";
+         PreparedStatement stmt = model.getConnection().prepareStatement(query);
+         stmt.setString(1, follower);
+         stmt.setString(2, followee);
+         stmt.executeUpdate();
+         return true;
+      }
+      catch (SQLException e)
+      {
+         System.out.println("Lmao, can't unfollow me!");
+         System.out.println(e);
+         return false;
+      }
    }
 
    public static void main(String[] args)
    {
-   
+      // MariaDB Connection
+      String driverName = "org.mariadb.jdbc.Driver";
+      String jdbcUrl = "jdbc:mariadb://db1.mcs.slu.edu:3306/sarpongdk";
+      String dbUsername = "sarpongdk";
+      String dbPassword = "7E!9DMewEm";
+      String connectionURL = String.format(jdbcUrl, dbUsername, dbPassword);
+      DatabaseModel model = new DatabaseModel(driverName, connectionURL, dbUsername, dbPassword);
+
+      String followee = "osbornej";
+      FriendshipModel friendModel = new FriendshipModel(model);
+      System.out.println("Num Followers: " + friendModel.getNumberOfFollowers(dbUsername));
+      System.out.println("Num Following: " + friendModel.getNumberFollowing(dbUsername));
+      System.out.println("Followers: " + friendModel.getFollowers(dbUsername));
+      System.out.println("Following: " + friendModel.getFollowing(dbUsername));
+      System.out.println("Follow: " + friendModel.follow(dbUsername, followee));
    }
 }

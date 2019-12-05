@@ -86,10 +86,14 @@ public class Controller
          // TODO: Switch to user profile panel
          view.hideLoginError();
          
-         //String imgPath = db.getProfilePicture(username); 
-         String imgPath = "../User-Data/default.jpg"; 
+         String imgPath = db.getProfilePicture(username); 
+         //String imgPath = "../User-Data/default.jpg"; 
          ImageIcon pic = getImage(imgPath, 175, 175);
-         ArrayList<String> following = null;
+         ArrayList<String> following = friendModel.getFollowing(username);
+         ArrayList<String> followers = friendModel.getFollowers(username);
+         int numFollowing = friendModel.getNumberFollowing(username);
+         int numOfFollowers = friendModel.getNumberOfFollowers(username);
+
          UserDTO userDto = new UserDTO(username, following, pic);
          view.switchToUserPage(userDto);
          //System.out.println("User logged in!");
