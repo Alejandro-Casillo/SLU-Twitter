@@ -28,6 +28,7 @@ public class MainFrame extends JFrame
 
       this.setBounds(0, 0, 750, 750);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.setResizable(false);
       this.setVisible(true);
 
       onSwitchToSignUpPanel();
@@ -115,6 +116,15 @@ public class MainFrame extends JFrame
             setVisible(true);
          }
       });
+   }
+
+   public void switchToLoginScreen()
+   {
+      signUpPanel.clear();
+      setVisible(false);
+      remove(signUpPanel);
+      add(loginPanel);
+      setVisible(true);
    }
 
    public void switchToUserPage(UserDTO dto)

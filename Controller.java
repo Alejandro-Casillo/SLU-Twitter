@@ -62,6 +62,7 @@ public class Controller
 
          // TODO: Switch to user profile panel       
          view.hideSignUpError();
+         view.switchToLoginScreen();
          System.out.println("User has been registered!"); // debug
       }
    };
@@ -85,7 +86,8 @@ public class Controller
          // TODO: Switch to user profile panel
          view.hideLoginError();
          
-         String imgPath = db.getProfilePicture(username); 
+         //String imgPath = db.getProfilePicture(username); 
+         String imgPath = "../User-Data/default.jpg"; 
          ImageIcon pic = getImage(imgPath, 175, 175);
          ArrayList<String> following = null;
          UserDTO userDto = new UserDTO(username, following, pic);
@@ -109,7 +111,6 @@ public class Controller
       catch (IOException e)
       {
          System.out.println(e);
-         return null;
       }
 
       return icon;

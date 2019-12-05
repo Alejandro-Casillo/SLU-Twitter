@@ -8,22 +8,24 @@ import java.util.*;
 
 public class UserPagePanel extends JPanel
 {
-	public JPanel upperPanel, lowerPanel, profilePic, friendPanel, mainPanel;
-	public JLabel imageText, friendText, mainText, usernameLabel;
+	public JPanel upperPanel, lowerPanel, profilePicPanel, friendPanel, mainPanel, usernamePanel;
+	public JLabel profilePic, friendText, mainText, usernameLabel;
 	private Image image;
 	private ArrayList <String> friendList;
 	public JScrollPane scroller;
 
 	public UserPagePanel()
 	{
-		upperPanel = new JPanel();
+		upperPanel = new JPanel(new BorderLayout());
 		lowerPanel = new JPanel(); //redundant?
-		profilePic = new JPanel();
+      usernamePanel = new JPanel();
+		profilePicPanel = new JPanel();
 		friendPanel = new JPanel();
 		mainPanel = new JPanel();
 
-      usernameLabel = new JLabel();
-		imageText = new JLabel("No Image :(");
+      usernameLabel = new JLabel("Welcome");
+      usernameLabel.setForeground(Color.WHITE);
+		profilePic = new JLabel();
 		friendText = new JLabel("Friend List");
 		mainText = new JLabel("This is where main tweets go");
 
@@ -42,28 +44,31 @@ public class UserPagePanel extends JPanel
 		mainPanel.setLayout(new FlowLayout());
 		mainPanel.setBackground(Color.WHITE);
 
-		profilePic.setBounds(50, 150, 175, 175);
-		profilePic.setLayout(new FlowLayout());
-		profilePic.setBackground(Color.WHITE);
+		profilePicPanel.setBounds(50, 150, 175, 175);
+		profilePicPanel.setLayout(new FlowLayout());
+		//profilePicPanel.setBackground(Color.WHITE);
 
 		friendPanel.setBounds(525, 95, 200, 300);
 		friendPanel.setLayout(new FlowLayout());
 
-		imageText.setHorizontalAlignment(SwingConstants.CENTER) ;
-		imageText.setVerticalAlignment(SwingConstants.CENTER);
-		imageText.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		profilePic.setHorizontalAlignment(SwingConstants.CENTER) ;
+		profilePic.setVerticalAlignment(SwingConstants.CENTER);
+		profilePic.setFont(new Font("Tahoma", Font.PLAIN, 30));
 
-		profilePic.add(imageText);
-      profilePic.add(usernameLabel);
-		profilePic.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+		profilePicPanel.add(profilePic);
+      //profilePicPanel.add(usernameLabel);
+		profilePicPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+
+      upperPanel.add(usernameLabel, BorderLayout.NORTH);
 
 		friendPanel.add(friendText);
 		mainPanel.add(mainText);
 
 		lowerPanel.add(friendPanel);
 		lowerPanel.add(mainPanel);
+      //lowerPanel.add(new JLabel("SLU-Twitter"));
 
-		add(profilePic);
+		add(profilePicPanel);
 		add(upperPanel);
 		add(lowerPanel);
 		
@@ -73,12 +78,12 @@ public class UserPagePanel extends JPanel
 
    public void setProfileImage(ImageIcon icon)
    {
-      imageText.setIcon(icon);
+      profilePic.setIcon(icon);
    }
 
    public void setUsername(String username)
    {
-      usernameLabel.setText(username);
+      usernameLabel.setText("Welcome, " + username);
    }
 
    public void setFollowingList(ArrayList<String> friendsList)

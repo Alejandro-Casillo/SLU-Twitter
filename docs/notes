@@ -10,3 +10,6 @@ java -cp .:<libs> Controller
 .e.g.
 java -cp .:../libs/* Controller
 
+# alias
+alias run="cd ~/Desktop/Databases/SLU-Twitter; javac -cp .:libs/* -d classes/ *.java; cd classes/; java -cp .:../libs/* Controller; cd .."
+

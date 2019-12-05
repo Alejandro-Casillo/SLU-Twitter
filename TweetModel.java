@@ -14,7 +14,7 @@ public class TweetModel
    public ArrayList<Tweet> getUserTweets(User user)
    {
       String username = user.getAccount().getUsername();
-      String query = "SELECT T.content, T.date_create, T.likes, U.username FROM Tweet AS T, User AS U WHERE U.id = T.user_id AND U.username = ?;";
+      String query = "SELECT T.content, T.date_create, T.likes, A.username FROM Tweet AS T, User AS U, Account AS A WHERE U.id = T.user_id AND A.username = ? AND A.id = U.account_id;";
       ArrayList<Tweet> tweets = new ArrayList<>();
 
       try

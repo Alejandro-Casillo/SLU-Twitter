@@ -36,8 +36,8 @@ public class DatabaseModel {
 
    public String getProfilePicture(String username)
    {
-      String query = "SELECT image_path FROM ProfilePicture AS P, User AS U WHERE U.username=? AND U.id = P.user_id;";
-      String path = "/User-Data/default.jpg";
+      String query = "SELECT image_path FROM ProfilePicture AS P, User AS U, Account AS A WHERE A.username=? AND U.id = P.user_id AND A.id = U.account_id;";
+      String path = "./User-Data/default.jpg";
 
       try
       {
