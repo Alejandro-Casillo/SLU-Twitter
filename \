@@ -27,8 +27,6 @@ public class UserPagePanel extends JPanel
       usernameLabel = new JLabel("Welcome");
       usernameLabel.setForeground(Color.WHITE);
       usernameLabel.setFont(new Font("Tahoma", FONT_SIZE, Font.BOLD));
-      usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
 		profilePic = new JLabel();
 		friendText = new JLabel("Friend List");
 		mainText = new JLabel("This is where main tweets go");
@@ -37,7 +35,7 @@ public class UserPagePanel extends JPanel
 		scroller = new JScrollPane();
 
 		upperPanel.setBounds(0, 0, MainFrame.MAX_WIDTH, 250);
-		upperPanel.setLayout(null);
+		//upperPanel.setLayout(new FlowLayout());
 		upperPanel.setBackground(new Color(0, 0, 204));
 
 		lowerPanel.setBounds(0, 250, MainFrame.MAX_WIDTH, MainFrame.MAX_HEIGHT);
@@ -63,7 +61,7 @@ public class UserPagePanel extends JPanel
       //profilePicPanel.add(usernameLabel);
 		profilePicPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 
-      upperPanel.add(usernameLabel);
+      upperPanel.add(usernameLabel, BorderLayout.CENTER);
 
 		friendPanel.add(friendText);
 		mainPanel.add(mainText);

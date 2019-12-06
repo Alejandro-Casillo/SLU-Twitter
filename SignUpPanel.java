@@ -72,7 +72,7 @@ public class SignUpPanel extends JPanel
 
       infoPanel = new JPanel();
       infoPanel.setLayout(new GridLayout(5, 2));
-      infoPanel.setBounds((MainFrame.MAX_WIDTH/2)-75, 350, 250, 150);
+      infoPanel.setBounds((MainFrame.MAX_WIDTH/2)-125, 350, 250, 150);
       infoPanel.setBackground(new Color(51, 153, 255));
 
       needsLoginPanel = new JPanel();
