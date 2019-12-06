@@ -13,7 +13,7 @@ public class UserPagePanel extends JPanel
 	public JLabel profilePic, friendText, mainText, usernameLabel;
 	private Image image;
 	private ArrayList <String> friendList;
-	public JScrollPane scroller;
+	public JScrollPane scroller, friendScroll;
 
 	public UserPagePanel()
 	{
@@ -24,14 +24,15 @@ public class UserPagePanel extends JPanel
 		friendPanel = new JPanel();
 		mainPanel = new JPanel();
 
+
       usernameLabel = new JLabel("Welcome");
       usernameLabel.setForeground(Color.WHITE);
       usernameLabel.setFont(new Font("Tahoma", FONT_SIZE, Font.BOLD));
       usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		profilePic = new JLabel();
-		friendText = new JLabel("Friend List");
-		mainText = new JLabel("This is where main tweets go");
+		//friendText = new JLabel("Friend List");
+		//mainText = new JLabel("This is where main tweets go");
 
 		friendList = new ArrayList<>();
 		scroller = new JScrollPane();
@@ -54,6 +55,8 @@ public class UserPagePanel extends JPanel
 
 		friendPanel.setBounds(525, 95, 200, 300);
 		friendPanel.setLayout(new FlowLayout());
+      friendScroll = new JScrollPane(friendPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+      friendScroll.setBounds(525, 95, 200, 350);
 
 		profilePic.setHorizontalAlignment(SwingConstants.CENTER) ;
 		profilePic.setVerticalAlignment(SwingConstants.CENTER);
@@ -65,10 +68,10 @@ public class UserPagePanel extends JPanel
 
       upperPanel.add(usernameLabel);
 
-		friendPanel.add(friendText);
-		mainPanel.add(mainText);
+		//friendPanel.add(friendText);
+		//mainPanel.add(mainText);
 
-		lowerPanel.add(friendPanel);
+		lowerPanel.add(friendScroll);
 		lowerPanel.add(mainPanel);
       //lowerPanel.add(new JLabel("SLU-Twitter"));
 

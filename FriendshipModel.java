@@ -70,7 +70,7 @@ public class FriendshipModel
    public ArrayList<String> getFollowers(String username)
    {
       ArrayList<String> following = new ArrayList<>();
-      String query = "SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id AND A.id = U.account_id;";
+      String query = "SELECT A.username FROM Account AS A, User AS U WHERE A.id=U.account_id AND U.id IN (SELECT F.follower FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.followee=U.id AND U.account_id=A.id);";
 
       try
       {
@@ -95,8 +95,7 @@ public class FriendshipModel
    public ArrayList<String> getFollowing(String username)
    {
       ArrayList<String> following = new ArrayList<>();
-      String query = "SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id AND U.account_id = A.id;";
-
+      String query = "SELECT A.username FROM Account AS A, User AS U WHERE A.id=U.account_id AND U.id IN (SELECT F.followee FROM Follows AS F, Account AS A, User AS U WHERE A.username=? AND F.follower=U.id AND U.account_id=A.id)";
       try
       {
          PreparedStatement stmt = model.getConnection().prepareStatement(query); 

@@ -27,7 +27,7 @@ public class TweetModel
             int likes = rs.getInt("likes");
             String content = rs.getString("content");
             String tUsername = rs.getString("username");
-            java.sql.Date date = rs.getDate("date_create");
+            java.sql.Date date = rs.getDate("date_created");
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             
