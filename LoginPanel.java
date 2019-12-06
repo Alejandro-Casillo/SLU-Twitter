@@ -7,6 +7,8 @@ import java.util.*;
 
 public class LoginPanel extends JPanel
 {
+   private static final int ERROR_FONT_SIZE = 14;
+
    private JTextField usernameField;
    private JPasswordField passwordField;
    private JLabel username, password, title, loginTitle, needAccount;
@@ -24,7 +26,7 @@ public class LoginPanel extends JPanel
       errorMsg = new JLabel("Username and password do not match!!");
       errorMsg.setHorizontalAlignment(SwingConstants.CENTER);
       errorMsg.setVerticalAlignment(SwingConstants.CENTER);
-      errorMsg.setFont(new Font("Tahoma", Font.BOLD, 10));
+      errorMsg.setFont(new Font("Tahoma", Font.BOLD, ERROR_FONT_SIZE));
       errorMsg.setForeground(Color.RED);
       errorMsg.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
       errorMsg.setVisible(false);      
@@ -37,11 +39,11 @@ public class LoginPanel extends JPanel
       setLayout(null);
       setBackground(new Color(51, 153, 255));
 
-      titlePanel.setBounds(0, 0, 750, 200);
+      titlePanel.setBounds(0, 0, MainFrame.MAX_WIDTH, 200);
       titlePanel.setLayout(null);
       titlePanel.setBackground(new Color(0, 0, 204));
 
-      title.setBounds(0, 0, 750 ,200);
+      title.setBounds(0, 0, MainFrame.MAX_WIDTH ,200);
       title.setFont(new Font("Tahoma", Font.PLAIN, 50));
       title.setForeground(Color.WHITE);
       title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,7 +56,7 @@ public class LoginPanel extends JPanel
       loginTitle.setVerticalAlignment(SwingConstants.CENTER);
 
       miniTitlePanel = new JPanel();
-      miniTitlePanel.setBounds(0, 200, 750, 100);
+      miniTitlePanel.setBounds(0, 200, MainFrame.MAX_WIDTH, 100);
       miniTitlePanel.setLayout(null);
       miniTitlePanel.setBackground(new Color(51, 153, 255));
 
@@ -66,12 +68,12 @@ public class LoginPanel extends JPanel
 
       loginPanel = new JPanel();
       loginPanel.setLayout(new GridLayout(2, 2));
-      loginPanel.setBounds(255, 350, 250, 50);
+      loginPanel.setBounds((MainFrame.MAX_WIDTH/2)-125, 350, 250, 50);
       loginPanel.setBackground(new Color(51, 153, 255));
 
       signUpPanel = new JPanel();
       signUpPanel.setLayout(new GridLayout(4, 1));
-      signUpPanel.setBounds(250, 425, 300, 100);
+      signUpPanel.setBounds((MainFrame.MAX_WIDTH/2)-175, 425, 350, 100);
       signUpPanel.setBackground(new Color(51, 153, 255));
 
       miniTitlePanel.add(loginTitle);

@@ -1,31 +1,69 @@
 Profile Pic Table Statement
-CREATE TABLE ProfilePicture (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, image_path VARCHAR(150) DEFAULT '/Users/d_sarpong/Desktop/Fall-2019/Databases/SLU-Twitter/User-Data', user_id INT NOT NULL, CONSTRAINT `fk_profile_pic` FOREIGN KEY (user_id) REFERENCES User(id));
+CREATE TABLE ProfilePicture (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, image_path VARCHAR(150) NOT NULL DEFAULT '../User-Data/default.jpg') ENGINE=INNODB;
+
 
 Account Table Statement
+CREATE TABLE Account (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(30) NOT NULL UNIQUE, password VARCHAR(40) NOT NULL, date_created DATE NOT NULL DEFAULT '2019-12-06') ENGINE=INNODB;
+
 
 User Table Statement
+CREATE TABLE User (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) NOT NULL, num_following INT NOT NULL DEFAULT 0, num_followers INT NOT NULL DEFAULT 0, dob DATE NOT NULL DEFAULT '2019-12-06', account_id INT NOT NULL, profile_id INT NOT NULL, CONSTRAINT `fk_profile` FOREIGN KEY (profile_id) REFERENCES ProfilePicture(id), CONSTRAINT `fk_account` FOREIGN KEY (acCount_id) REFERENCES Account(id)) ENGINE=INNODB;
+
 
 Tweet Table Statement
+CREATE TABLE Tweet (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, content TINYTEXT, date_created DATE NOT NULL DEFAULT '2019-12-06', likes INT NOT NULL DEFAULT 0, user_id INT NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user_id) REFERENCES User(id)) ENGINE=INNODB;
+
 
 Follows Table Statement
-CREATE TABLE Follows (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, follower INT NOT NULL, followee INT NOT NULL, CONSTRAINT `fk_follower` FOREIGN KEY (follower) REFERENCES User(id), CONSTRAINT `fk_followee` FOREIGN KEY (followee) REFERENCES User(id));
+CREATE TABLE Follows (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, follower INT NOT NULL, followee INT NOT NULL, CONSTRAINT `fk_follower` FOREIGN KEY (follower) REFERENCES User(id), CONSTRAINT `fk_followee` FOREIGN KEY (followee) REFERENCES User(id)) ENGINE=INNODB;
+
 
 Get Followers
-SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
+SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id AND A.id = U.account_id;
 
-Number of followers
-SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
+
+Number of Followers
+SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id AND A.id = U.account_id;
+
 
 Get Following
-SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.follower = U.id
+SELECT A.username FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.follower = U.id AND A.id = U.account_id;
 
-Number following
-SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id
 
-Number of Posts
+Number Following
+SELECT COUNT(*) FROM Follows AS F, Account AS A, User AS U WHERE A.username = ? AND F.followee = U.id AND A.id = U.account_id;
+
+
+Add Followers
+INSERT INTO TABLE Follows (follower, followee) VALUES ( (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND A.id = U.account_id), (SELECT id FROM User AS A, Account AS A WHERE A.username = ? AND A.id = U.account_id) );
+
+Add Following
+INSERT INTO TABLE Follows (follower, followee) VALUES ( (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND A.id = U.account_id), (SELECT id FROM User AS A, Account AS A WHERE A.username = ? AND A.id = U.account_id) );
+
+
+Number of Tweets
+SELECT COUNT(*) FROM Tweet AS T, User AS U, Account AS A WHERE T.user_id = U.id AND A.username = ? AND A.id = U.account_id;
+
 
 Get user's tweets
+SELECT T.content, T.likes, A.username FROM Tweet AS T, User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id AND T.user_id = U.id;
+
 
 Create user tweet
+INSERT INTO TABLE Tweet (content, date_created, likes, user_id) VALUES (?, ?, ?, (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND U.account_id = U.id)  );
 
-Friends Suggestion
+
+Profile Picture 
+SELECT image_path FROM ProfilePicture AS P, User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id AND P.user_id = U.id;
+
+
+Authenticate User
+SELECT * FROM Account WHERE username = ? AND password = MD5(?);
+
+
+Register User
+START TRANSACTION;
+INSERT INTO TABLE Account (username, password, date_created) VALUES (?, MD5(?), ?);
+INSERT INTO TABLE User (name, num_following, num_followers, dob, account_id) VALUES (?, ?, ?, ?, LAST_INSERT_TABLE());
+INSERT INTO TABLE ProfilePicture (user_id) VALUES (LAST_INSERT_TABLE());
+COMMIT;

@@ -4,6 +4,9 @@ A clone of Twitter social network, providing simple features such as:
 - ability to follow other users and be followed
 - tweet both text and images
 
+## About Project
+The focus of the project is not necessarily the cloning the full functionality of Twitter, rather a demonstration of dexterity with MariaDB DBMS in managing and persisting data for a social media web application such as Twitter.
+
 ### To compile the project
 Create a classes directory with the command `mkdir classes` for contain the compiled files
 

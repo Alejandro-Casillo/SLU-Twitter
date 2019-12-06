@@ -10,6 +10,8 @@ import java.util.*;
 
 public class MainFrame extends JFrame 
 {
+   public static final int MAX_HEIGHT = 1000;
+   public static final int MAX_WIDTH = 1250;
    private static final String TITLE = "SLU Twitter";
 
    //private JFrame this = new JFrame("SLU Twitter");
@@ -26,7 +28,7 @@ public class MainFrame extends JFrame
 
       this.add(loginPanel);
 
-      this.setBounds(0, 0, 750, 750);
+      this.setBounds(0, 0, MAX_WIDTH, MAX_HEIGHT);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       this.setResizable(false);
       this.setVisible(true);

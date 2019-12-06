@@ -13,12 +13,13 @@ public class TweetModel
 
    public ArrayList<String> getUserTweets(String username)
    {
-      String query = "SELECT T.content, T.date_create, T.likes, A.username FROM Tweet AS T, User AS U, Account AS A WHERE U.id = T.user_id AND A.username = ? AND A.id = U.account_id;";
+      String query = "SELECT T.content, T.date_created, T.likes, A.username FROM Tweet AS T, User AS U, Account AS A WHERE U.id = T.user_id AND A.username = ? AND A.id = U.account_id;";
       ArrayList<String> tweets = new ArrayList<>();
 
       try
       {
          PreparedStatement stmt = model.getConnection().prepareStatement(query);
+         stmt.setString(1, username);
          ResultSet rs = stmt.executeQuery();
 
          while (rs.next())
@@ -46,7 +47,7 @@ public class TweetModel
    {
       try
       {
-         String query = "INSERT INTO Tweet (content, date_create, likes, user_id) VALUES (?, ?, ?, (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id));";
+         String query = "INSERT INTO Tweet (content, date_created, likes, user_id) VALUES (?, ?, ?, (SELECT U.id FROM User AS U, Account AS A WHERE A.username = ? AND U.account_id = A.id));";
 
          int likes = tweet.getLikes();
          String username = tweet.getUsername();

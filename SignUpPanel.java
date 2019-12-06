@@ -12,6 +12,7 @@ import org.jdatepicker.util.*;
 
 public class SignUpPanel extends JPanel
 {
+   private static final int ERROR_FONT_SIZE = 14;
    private JTextField fNameField, lNameField, usernameField, dobField;
    private JPasswordField passwordField;
    private JLabel title, fname, lname, username, password, dateOfBirth, hasAccount;
@@ -41,15 +42,15 @@ public class SignUpPanel extends JPanel
       errorMsg.setHorizontalAlignment(SwingConstants.CENTER);
       errorMsg.setVerticalAlignment(SwingConstants.CENTER);
       errorMsg.setForeground(Color.RED);
-      errorMsg.setFont(new Font("Arial", Font.BOLD, 12));
+      errorMsg.setFont(new Font("Arial", Font.BOLD, ERROR_FONT_SIZE));
       errorMsg.setVisible(false);      
 
       // title
-      titlePanel.setBounds(0, 0, 750, 200);
+      titlePanel.setBounds(0, 0, MainFrame.MAX_WIDTH, 200);
       titlePanel.setLayout(null);
       titlePanel.setBackground(new Color(0, 0, 204));
 
-      title.setBounds(0, 0, 750 ,200);
+      title.setBounds(0, 0, MainFrame.MAX_WIDTH ,200);
       title.setFont(new Font("Tahoma", Font.PLAIN, 50));
       title.setForeground(Color.WHITE);
       title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -71,12 +72,12 @@ public class SignUpPanel extends JPanel
 
       infoPanel = new JPanel();
       infoPanel.setLayout(new GridLayout(5, 2));
-      infoPanel.setBounds(255, 350, 250, 150);
+      infoPanel.setBounds((MainFrame.MAX_WIDTH/2)-75, 350, 250, 150);
       infoPanel.setBackground(new Color(51, 153, 255));
 
       needsLoginPanel = new JPanel();
       needsLoginPanel.setLayout(new GridLayout(4, 1));
-      needsLoginPanel.setBounds(250, 525, 300, 100);
+      needsLoginPanel.setBounds((MainFrame.MAX_WIDTH/2)-150, 525, 300, 100);
       needsLoginPanel.setBackground(new Color(51, 153, 255));
 
       needsLoginPanel.add(signUp);

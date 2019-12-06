@@ -8,6 +8,7 @@ import java.util.*;
 
 public class UserPagePanel extends JPanel
 {
+   public static final int FONT_SIZE = 54;
 	public JPanel upperPanel, lowerPanel, profilePicPanel, friendPanel, mainPanel, usernamePanel;
 	public JLabel profilePic, friendText, mainText, usernameLabel;
 	private Image image;
@@ -25,6 +26,7 @@ public class UserPagePanel extends JPanel
 
       usernameLabel = new JLabel("Welcome");
       usernameLabel.setForeground(Color.WHITE);
+      usernameLabel.setFont(new Font("Tahoma", FONT_SIZE, Font.BOLD));
 		profilePic = new JLabel();
 		friendText = new JLabel("Friend List");
 		mainText = new JLabel("This is where main tweets go");
@@ -32,11 +34,11 @@ public class UserPagePanel extends JPanel
 		friendList = new ArrayList<>();
 		scroller = new JScrollPane();
 
-		upperPanel.setBounds(0, 0, 750, 250);
-		upperPanel.setLayout(null);
+		upperPanel.setBounds(0, 0, MainFrame.MAX_WIDTH, 250);
+		upperPanel.setLayout(new FlowLayout());
 		upperPanel.setBackground(new Color(0, 0, 204));
 
-		lowerPanel.setBounds(0, 250, 750, 500);
+		lowerPanel.setBounds(0, 250, MainFrame.MAX_WIDTH, MainFrame.MAX_HEIGHT);
 		lowerPanel.setLayout(null);
 		lowerPanel.setBackground(new Color(51, 153, 255));
 
@@ -73,7 +75,7 @@ public class UserPagePanel extends JPanel
 		add(lowerPanel);
 		
 		setLayout(null);
-		setBounds(0, 0, 750, 750);
+		setBounds(0, 0, MainFrame.MAX_WIDTH, MainFrame.MAX_HEIGHT);
 	}
 
    public void setProfileImage(ImageIcon icon)
